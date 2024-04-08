@@ -1,0 +1,7 @@
+{% extends 'recipes/base.html' %}
+
+
+<form action="{% url 'user-logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
