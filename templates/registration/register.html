@@ -1,20 +1,26 @@
 {% extends 'recipes/base.html' %}
-{% load crispy_forms_tags %}
 
     {% block content %}
     <div class="container">
-        <form method="POST">
+        <form method="post">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sign Up!</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group py-3">
-                <input class="btn btn-outline-primary" type="submit" value="Sign Up">
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }} <br>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
+            <button type='submit'>Sign Up</button>
+            {% endfor %}
         </form>
+
         <div class="border-top pt-3">
-            <a href="{% url 'user-login' %}">Already have an account? Login here. </a>
+            <a href="#">Already have an account? Login here. </a>
         </div>
     </div>
     {% endblock content %}

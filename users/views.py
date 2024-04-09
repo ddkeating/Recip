@@ -1,29 +1,35 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth import login, authenticate
+from .forms import UserRegistrationForm
+
+from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth.forms import UserCreationForm
+
+from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from . import forms
 
-# Create your views here.
-def register(request):
+
+def signup(request):
     if request.method == 'POST':
-        form = forms.UserRegisterForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f"{username}, your account has been created, please login!")
-            return redirect('user-login')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
     else:
-        form = forms.UserRegisterForm()  # Initialize form outside the 'POST' request block
-    return render(request, 'users/register.html', {'form': form})
+        form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
-class CustomLogoutView(LogoutView):
-    def dispatch(self, request, *args, **kwargs):
-        if request.method == 'GET':
-            return redirect(reverse_lazy('user-login'))
-        return super().dispatch(request, *args, **kwargs)
+class LogOutView(LogoutView):
+    template_name = 'registration/logout.html'
+    def get_redirect_url(self):
+        return reverse_lazy('logout')
 
-@login_required()    
-def profile(request):
-    return render(request, 'users/profile.html')
+class LogInView(LoginView):
+    def get_redirect_url(self):
+        return reverse_lazy('recipes-home')
