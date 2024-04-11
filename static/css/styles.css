@@ -1,0 +1,24 @@
+/* Font Imports */
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Colours */
+
+:root {
+	--primary-color: #162435;
+	--accent-color: #689689;
+	--misc-one: #f06543;
+	--misc-two: #f09d51;
+	--font-title: #222222;
+	--font-body: #656565;
+}
+
+/* Referencing fonts as classes to improve HTML + TailwindCSS readability. */
+.jost {
+	font-family: "Jost", sans-serif;
+}
+
+.georgia {
+	font-family: "Georgia", serif;
+}
+
+/* General Styles */

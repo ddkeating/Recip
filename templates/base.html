@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Recip | Find Amazing Recipes from Around the World</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <!-- Import TailwindCSS -->
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Find amazing recipes from around the world.">
+        
+		{% if title %}
+		<title>{{title}}</title>
+		{% else %}
+		<title>Recip | Find Amazing Recipes from Around the World</title>
+		{% endif %} {% load static %}
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<!-- Import TailwindCSS -->
+		<link
+			href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+        <!-- Import FontAwesomeIcons-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	</head>
 
-    <body>
-        {% comment %} ENTER HTML HERE {% endcomment %}
-    </body>
-
+	<body class="m-6">
+		<nav style="color: var(--font-title);" class="flex flex-row jost font-medium text-lg align-middle">
+			<div class="justify-start flex-grow">
+				<a href="#" class="text-xl font-bold">Recip.</a>
+			</div>
+			<div class="space-x-10 mr-10">
+					<a href="{% url 'home' %}">Home</a></li>
+                    <a href="#">Recipes</a></li>
+					<a href="{% url 'about' %}">About</a></li>
+                    <i class="fas fa-search"></i>
+			</div>
+			<div class="">
+				{% if user.is_authenticated %}
+				<a href="#">My Profile</a>
+				<a href="#">Logout</a>
+				{% else %}
+				<a href="#">Login</a>
+				{% endif %}
+			</div>
+		</nav>
+		{% block content %}{% endblock %} 
+	</body>
 </html>
