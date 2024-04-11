@@ -56,4 +56,4 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
-    return render(request, "recipes/about.html", {'title':'about us page'})
+    return render(request, "recipes/about.html", {'title':'Recip | About'})
