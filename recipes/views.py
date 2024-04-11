@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse_lazy  
 from .models import Recipe
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -26,11 +26,19 @@ class RecipeListView(ListView):
         else:
             return Recipe.objects.all()
         
-        
+
 
 class RecipeDetailView(DetailView):
     model = Recipe
+    context_object_name = 'recipe'
     template_name = 'recipes/recipe_detail.html'
+
+
+class HomeView(TemplateView):
+    template_name = 'tours/home.html'
+
+class AboutView(TemplateView):
+    template_name = 'tours/about.html'
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe

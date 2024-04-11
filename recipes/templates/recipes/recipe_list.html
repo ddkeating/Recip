@@ -11,8 +11,8 @@
     <div class=" w-1/2 p-4">
         <h2 class="text-3xl font-bold mb-4">{{recipe.title}}</h2>
         <p class="text-lg text-gray-700 mb-4">{{recipe.description}}</p>
-        <a class='inline-block bg-[#162435] px-6 py-2 rounded-full' href='/'>
-        {% comment %} href={% url 'recipe_detail' recipe.category recipe.id %}> {% endcomment %}
+        <a class='inline-block bg-[#162435] px-6 py-2 rounded-full'
+        href={% url 'recipe_detail' recipe.category recipe.id %}>
             <p class='text-lg text-white'>View Details</p>
         </a>
     </div>
