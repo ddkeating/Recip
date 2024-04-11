@@ -1,11 +1,13 @@
 from django.urls import path
-from . import views
+from .views import RecipeListView, RecipeDetailView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, HomeView, AboutView
 
 urlpatterns = [
-    path('', views.RecipeListView.as_view(), name="home"),
-    path('recipe/<int:pk>/', views.RecipeDetailView.as_view(), name="recipes-detail"),
-    path('recipes/create/', views.RecipeCreateView.as_view(), name="recipes-create"),
-    path('recipe/<int:pk>/update/', views.RecipeUpdateView.as_view(), name="recipes-update"),
-    path('recipe/<int:pk>/delete/', views.RecipeDeleteView.as_view(), name="recipes-delete"),
-    path('about/', views.about, name='about'),
+    path('', HomeView.as_view(), name='home'),
+    path('recipes/', RecipeListView.as_view(), name="recipes_list"),
+    path('recipes/<str:category_name>/', RecipeListView.as_view(), name="recipes_list_by_category"),
+    path('recipes/<str:category_name>/<int:pk>/', RecipeDetailView.as_view(), name="recipe_detail"),
+    # path('recipes/create/', RecipeCreateView.as_view(), name="recipes-create"),
+    # path('recipe/<int:pk>/update/', RecipeUpdateView.as_view(), name="recipes-update"),
+    # path('recipe/<int:pk>/delete/', RecipeDeleteView.as_view(), name="recipes-delete"),
+    path('about/', AboutView.as_view(), name='about'),
 ]
