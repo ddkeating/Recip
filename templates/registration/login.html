@@ -1,18 +1,17 @@
-{% extends 'recipes/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 <div class='flex flex-col gap-8 w-full items-center justify-center'>
 <h1 class='text-5xl'>Login</h1>
-{% if next %}
 {% if user.is_authenticated %}
   <p>Your account doesn't have access to this page. To proceed,
   please login with an account that has access.</p>
 {% else %}
-  <p>To view this page please login with your GoNZ account.</p>
+  <p>To view this page please login with your Recip account.</p>
 {% endif %}
-{% endif %}
+
 
 <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
@@ -34,7 +33,6 @@
       </td>
     </tr>
   </table>
-  <input type="hidden" name="next" value="{{ next }}">
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}

@@ -1,30 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse_lazy  
-from . import models
+from .models import Recipe
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # Create your views here.
 def home(request):
-    recipes = models.Recipe.objects.all()
+    recipes = Recipe.objects.all()
     context = {
         'recipes': recipes,
     }
     return render(request, "recipes/home.html", context)
 
 class RecipeListView(ListView):
-    model = models.Recipe
-    template_name = 'recipes/home.html'
-    context_object_name = 'recipes'
+    model = Recipe
+    template_name = 'recipes/recipe_list.html'
+    context_object_name = 'recipe_list'
+
+    def get_queryset(self):
+        category_name = self.kwargs.get('category_name', None)
+        if category_name:
+            return Recipe.objects.filter(category=category_name)
+        else:
+            return Recipe.objects.all()
+        
+        
 
 class RecipeDetailView(DetailView):
-    model = models.Recipe
+    model = Recipe
     template_name = 'recipes/recipe_detail.html'
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
-    model = models.Recipe
+    model = Recipe
     fields = ['title', 'description']
     success_url = reverse_lazy('recipes-home')
 
@@ -34,7 +43,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = models.Recipe
+    model = Recipe
     fields = ['title', 'description']
 
     def test_func(self):
@@ -47,7 +56,7 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)
     
 class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = models.Recipe
+    model = Recipe
     success_url = reverse_lazy( 'recipes-home' )
 
     def test_func(self):
