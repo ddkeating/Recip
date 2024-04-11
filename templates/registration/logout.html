@@ -1,7 +1,12 @@
 {% extends 'recipes/base.html' %}
+{% block content %}
 
-
-<form action="{% url 'user-logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+<div class='flex flex-col gap-8 w-full items-center justify-center'>
+    <h1 class='text-5xl mt-6'>You have been successfully logged out.</h1>
+    <div class='flex flex-col items-center'>
+        <p><a href={% url 'login' %} class='underline'>Click here to log back in.</a></p>
+        <p>or</p>
+        <p><a href={% url 'recipes-home' %} class='underline'>Go back to the home page.</a></p>
+    </div>
+  </div>
+{% endblock %}
