@@ -1,20 +1,43 @@
 {% extends 'recipes/base.html' %}
-{% load crispy_forms_tags %}
+{% block content %}
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+<div class='flex flex-col gap-8 w-full items-center justify-center'>
+<h1 class='text-5xl'>Login</h1>
+{% if next %}
+{% if user.is_authenticated %}
+  <p>Your account doesn't have access to this page. To proceed,
+  please login with an account that has access.</p>
+{% else %}
+  <p>To view this page please login with your GoNZ account.</p>
+{% endif %}
+{% endif %}
 
-    {% block content %}
-    <div class="container">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Login!</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group py-3">
-                <input class="btn btn-outline-primary" type="submit" value="Login">
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <a href="{% url 'user-register' %}">Don't have an account? Register here. </a>
-        </div>
-    </div>
-    {% endblock content %}
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <table class='flex flex-col p-8 bg-[#f5f5f5] rounded-md shadow-md'>
+    <tr class='flex gap-2 justify-between mb-4'>
+      <td><p>{{ form.username.label_tag }}</p></td>
+      <td><p>{{ form.username }}</p></td>
+    </tr>
+    <tr class='flex gap-2 justify-between mb-8'>
+      <td><p>{{ form.password.label_tag }}</p></td>
+      <td><p>{{ form.password }}</p></td>
+    </tr>
+    <tr class='w-full flex justify-center'>
+      <td class=''>
+        <button type="submit" value="login"
+        class="bg-[#162435] px-6 py-1 rounded-full  font-medium hover:bg-[#999] transition-all">
+          <p class='text-white'>Login</p>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+{% comment %} <p class='underline'><a href="{% url 'signup' %}">Need an account?</a></p> {% endcomment %}
+</div>
+{% endblock %}
