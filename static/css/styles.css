@@ -22,3 +22,23 @@
 }
 
 /* General Styles */
+
+h1 {
+	font-size: 2.5rem;
+	color: var(--font-title);
+}
+
+h2 {
+	font-size: 2rem;
+	color: var(--font-title);
+}
+
+h3 {
+	font-size: 1.5rem;
+	color: var(--font-title);
+}
+
+p {
+	font-size: 1rem;
+	color: var(--font-body);
+}

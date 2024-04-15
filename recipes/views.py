@@ -19,10 +19,14 @@ class RecipeListView(ListView):
     template_name = 'recipes/recipe_list.html'
     context_object_name = 'recipe_list'
 
+# This method is used to filter recipes by category or search.
     def get_queryset(self):
         category_name = self.kwargs.get('category_name', None)
         if category_name:
             return Recipe.objects.filter(category=category_name)
+        # Searches by passed query. If no query is passed, returns all recipes
+        elif self.kwargs.get('search_query', None):
+            return Recipe.objects.filter(title__icontains=self.kwargs.get('search_query'))
         else:
             return Recipe.objects.all()
         
@@ -34,11 +38,13 @@ class RecipeDetailView(DetailView):
     template_name = 'recipes/recipe_detail.html'
 
 
-class HomeView(TemplateView):
-    template_name = 'tours/home.html'
+class HomeView(ListView):
+    model = Recipe
+    template_name = 'recipes/home.html'
+    context_object_name = 'recipe_list'
 
 class AboutView(TemplateView):
-    template_name = 'tours/about.html'
+    template_name = 'recipes/about.html'
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
