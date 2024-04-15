@@ -24,7 +24,7 @@
 			</div>
 			<div class="space-x-10 mr-10">
 					<a href="{% url 'home' %}">Home</a></li>
-                    <a href="#">Recipes</a></li>
+                    <a href="{% url 'recipes_list' %}">Recipes</a></li>
 					<a href="{% url 'about' %}">About</a></li>
                     <i class="fas fa-search"></i>
 			</div>
@@ -33,7 +33,7 @@
 				<a href="#">My Profile</a>
 				<a href="#">Logout</a>
 				{% else %}
-				<a href="#">Login</a>
+				<a href="{% url 'login' %}">Login</a>
 				{% endif %}
 			</div>
 		</nav>
