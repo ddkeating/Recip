@@ -35,10 +35,10 @@ class RecipeDetailView(DetailView):
 
 
 class HomeView(TemplateView):
-    template_name = 'tours/home.html'
+    template_name = 'recipes/home.html'
 
 class AboutView(TemplateView):
-    template_name = 'tours/about.html'
+    template_name = 'recipes/about.html'
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
@@ -70,7 +70,3 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         recipe = self.get_object()
         return self.request.user == recipe.author
-
-
-def about(request):
-    return render(request, "recipes/about.html", {'title':'Recip | About'})
