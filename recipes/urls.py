@@ -4,7 +4,7 @@ from .views import RecipeListView, RecipeDetailView, RecipeCreateView, RecipeUpd
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('recipes/', RecipeListView.as_view(), name="recipes_list"),
-    path('recipes/<str:search_query>/', RecipeListView.as_view(), name="recipes_list_by_search"),
+    path('recipes/', RecipeListView.as_view(), name="recipes_list_by_search"),
     path('recipes/<str:category_name>/', RecipeListView.as_view(), name="recipes_list_by_category"),
     path('recipe/<int:pk>/', RecipeDetailView.as_view(), name="recipe_detail"),
 

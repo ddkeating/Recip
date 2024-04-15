@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from .models import Recipe
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 
 
 # Create your views here.
@@ -22,11 +23,15 @@ class RecipeListView(ListView):
 # This method is used to filter recipes by category or search.
     def get_queryset(self):
         category_name = self.kwargs.get('category_name', None)
+        search_query = self.request.GET.get('search_query', '')
         if category_name:
             return Recipe.objects.filter(category=category_name)
         # Searches by passed query. If no query is passed, returns all recipes
-        elif self.kwargs.get('search_query', None):
-            return Recipe.objects.filter(title__icontains=self.kwargs.get('search_query'))
+        elif search_query:
+            return Recipe.objects.filter(
+                Q(title__icontains=search_query) | 
+                Q(description__icontains=search_query)
+            )
         else:
             return Recipe.objects.all()
         
