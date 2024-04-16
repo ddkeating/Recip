@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RecipeListView, RecipeDetailView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, HomeView, AboutView, get_random_recipe
+from .views import RecipeListView, RecipeDetailView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, HomeView, AboutView, get_random_recipe, AuthorDetailView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -12,4 +12,5 @@ urlpatterns = [
     # path('recipe/<int:pk>/update/', RecipeUpdateView.as_view(), name="recipes-update"),
     # path('recipe/<int:pk>/delete/', RecipeDeleteView.as_view(), name="recipes-delete"),
     path('about/', AboutView.as_view(), name='about'),
+    path('profile/<int:pk>/', AuthorDetailView.as_view(), name='profile'),
 ]
