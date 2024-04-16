@@ -36,7 +36,7 @@
 	<body>
 		<nav
 			style="color: var(--font-title)"
-			class="flex flex-row jost font-medium text-lg align-middle py-6 px-16"
+			class="flex flex-row jost font-medium text-lg py-6 px-12 nav-bar"
 		>
 			<div class="justify-start flex-grow">
 				<a href="#" class="text-xl font-bold">Recip.</a>
@@ -47,23 +47,55 @@
 				<a href="{% url 'about' %}">About</a>
 				<i class="fas fa-search"></i>
 			</div>
-			<div class="flex flex-row space-x-10">
+			<div class="flex flex-row space-x-5">
 				{% if user.is_authenticated %}
-				<a href="{% url 'profile' %}">My Profile</a>
+				<a
+					href="{% url 'profile' %}"
+					class="px-4 py-1 tracking-wide rounded-full text-white"
+					style="background-color: var(--primary-color)"
+					>My Profile</a
+				>
 				<form method="post" action="{% url 'logout' %}">
 					{% csrf_token %}
 					<button
 						type="submit"
-						class="bg-[#999] px-3 py-1 tracking-wide rounded-full text-white hover:bg-[#162435] transition-all"
+						class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+						style="background-color: var(--accent-color)"
 					>
 						Logout
 					</button>
 				</form>
 				{% else %}
-				<a href="#">Login</a>
+				<a
+					href="{% url 'login' %}"
+					class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+					style="background-color: var(--accent-color)"
+					>Login</a
+				>
 				{% endif %}
 			</div>
 		</nav>
-		{% block content %}{% endblock %}
+		<main class="min-h-screen">{% block content %}{% endblock %}</main>
+		<footer
+			class="relative flex flex-col items-center py-4"
+			style="background-color: var(--primary-color)"
+		>
+			<div class="flex flex-row space-x-10 mb-5">
+				<ul class="flex flex-col">
+					<p class="font-bold">Quick Links</p>
+					<a href="{% url 'recipes_list' %}">All Recipes</a>
+				</ul>
+				<ul class="flex flex-col space-y-1">
+					<p class="font-bold">Recipes</p>
+					<a href="{% url 'recipes_list_by_category' 'indian' %}">Indian</a>
+					<a href="{% url 'recipes_list_by_category' 'chinese' %}">Chinese</a>
+					<a href="{% url 'recipes_list_by_category' 'french' %}">French</a>
+					<a href="{% url 'recipes_list_by_category' 'american' %}">American</a>
+					<a href="{% url 'recipes_list_by_category' 'asian' %}">Asian</a>
+				</ul>
+			</div>
+
+			<p>&copy; 2024 Recip. All rights reserved.</p>
+		</footer>
 	</body>
 </html>

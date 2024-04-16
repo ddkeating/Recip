@@ -1,19 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy  
 from .models import Recipe
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
+from random import randint
 
 
-# Create your views here.
-def home(request):
-    recipes = Recipe.objects.all()
-    context = {
-        'recipes': recipes,
-    }
-    return render(request, "recipes/home.html", context)
+
+def get_random_recipe(request):
+    total_recipes = Recipe.objects.count()
+    random_index = randint(0, total_recipes - 1)
+    random_recipe = Recipe.objects.all()[random_index]
+    return redirect('recipe_detail', pk=random_recipe.pk)
 
 class RecipeListView(ListView):
     model = Recipe
@@ -28,6 +28,8 @@ class RecipeListView(ListView):
             return Recipe.objects.filter(category=category_name)
         # Searches by passed query. If no query is passed, returns all recipes
         elif search_query:
+            if (search_query == ''):
+                return Recipe.objects.all() 
             return Recipe.objects.filter(
                 Q(title__icontains=search_query) | 
                 Q(description__icontains=search_query)
@@ -82,6 +84,3 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         recipe = self.get_object()
         return self.request.user == recipe.author
 
-
-def about(request):
-    return render(request, "recipes/about.html", {'title':'Recip | About'})

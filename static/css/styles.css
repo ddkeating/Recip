@@ -28,6 +28,18 @@ body {
 	padding: 0;
 }
 
+h1,
+h2 {
+	font-family: "Georgia", serif;
+}
+
+h2,
+h3,
+p,
+a {
+	font-family: "Jost", sans-serif;
+}
+
 h1 {
 	font-size: 2.5rem;
 	color: var(--font-title);
@@ -48,12 +60,62 @@ p {
 	color: var(--font-body);
 }
 
+footer a,
+footer p {
+	color: white;
+}
 /* Utility Classes */
+
+/* These CSS classes are used to help with TailwindCSS not performing correctly in some cases. */
 
 .h-300 {
 	height: 300px;
 }
 
+.w-max-header {
+	max-width: 50%;
+}
+
 .bg-primary {
 	background-color: var(--primary-color);
+}
+
+.nav-bar a,
+.nav-bar i {
+	transition: all ease 0.3s;
+}
+
+.nav-bar a:hover,
+.nav-bar i:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.home-input {
+	color: white;
+	background-color: var(--accent-color);
+	margin: 10px 0;
+	transition: all ease 0.3s;
+}
+
+.home-input:hover {
+	opacity: 0.85;
+}
+
+.home-input > input::placeholder {
+	color: white;
+}
+
+.home-input > input:focus,
+.home-input > input:active {
+	outline: none;
+	background: transparent;
+}
+
+#food-card {
+	transition: all ease 0.3s;
+}
+
+#food-card:hover {
+	transform: scale(1.05);
 }

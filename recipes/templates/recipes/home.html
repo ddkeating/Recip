@@ -1,52 +1,155 @@
 {% extends 'base.html' %} {% block content %}
-
-<section>
-	<div>
-		<p>Unleash your inner chef and embark on a culinary adventure with Recip</p>
-		<h2>
-			World-Class Flavours on Your Plate, Explore Fantastic Recipes by Pro Home
-			Cooks from Around the Globe
-		</h2>
-		<p>
-			Recip. brings amazing family recipes of the world to your kitchen. Explore
-			world-class flavours with our collection of inspiring recipes, making
-			Grandma-approved meals achievable for any home cooks.
-		</p>
-		<!--Search Bar item-->
-		<div>
-			<form method="GET" action="{% url 'recipes_list_by_search'  %}">
-				{% csrf_token %}
-				<input
-					type="text"
-					name="search_query"
-					placeholder="Search for recipes..."
-					class="rounded-full px-4 py-2"
-				/>
-				<button
-					type="submit"
-					class="bg-[#999] px-3 py-1 tracking-wide rounded-full text-white hover:bg-[#162435] transition-all"
+<div class="px-12">
+	<section class="flex flex-row my-4 justify-between">
+		<div class="flex flex-col w-2/5">
+			<p>
+				Unleash your inner chef and embark on a culinary adventure with Recip
+			</p>
+			<h1 class="leading-tight">
+				World-Class Flavours on Your Plate, Explore Fantastic Recipes by Pro
+				Home Cooks from Around the Globe
+			</h1>
+			<p>
+				Recip. brings amazing family recipes of the world to your kitchen.
+				Explore world-class flavours with our collection of inspiring recipes,
+				making Grandma-approved meals achievable for any home cooks.
+			</p>
+			<!--Search Bar item-->
+			<div class="flex flex-row space-x-10 items-center">
+				<form method="GET" action="{% url 'recipes_list_by_search'  %}">
+					<!--Should not require CSRF Token due to it being a GET request.-->
+					<div class="flex flex-row rounded-full p-1 home-input">
+						<input
+							type="text"
+							name="search_query"
+							placeholder="Search for recipes..."
+							class="flex-grow bg-transparent px-4"
+						/>
+						<button type="submit">
+							<i
+								class="fas fa-search rounded-full text-xl bg-white p-2"
+								style="color: var(--accent-color)"
+							></i>
+						</button>
+					</div>
+				</form>
+				<a
+					href="{% url 'random_recipe' %}"
+					class="rounded-full px-8 py-2 text-white font-bold"
+					style="background-color: var(--primary-color)"
+					>Surprise Me</a
 				>
-					Search
-				</button>
-			</form>
+			</div>
 		</div>
-	</div>
+		<div class="items-center">
+			{% load static %}
+			<img
+				src="{% static 'images/food.jpg' %}"
+				alt="Food"
+				class="object-cover rounded-lg"
+			/>
+		</div>
+	</section>
 
-	<div></div>
-</section>
-<section>
-	{% for recipe in recipe_list|slice:":4" %}
-	<div class="" style="width: 18rem">
-		<div class="">
-			<h1 class="">{{ recipe.title }}</h1>
-			<h6 class="">{{ recipe.author }}</h6>
-			<p class="">{{ recipe.description }}</p>
-			<h6 class="">{{ recipe.total_cook_time }}</h6>
-			<a href="{% url 'recipe_detail' recipe.pk %}" class="card-link"
-				>View Recipe</a
+	<section>
+		<p>Recip. Exclusive</p>
+		<h1>Hot Right Now &#128293;</h1>
+		<div class="grid grid-cols-4 gap-20 my-5">
+			{% for recipe in recipe_list|slice:":4" %}
+			<a id="food-card" href="{% url 'recipe_detail' recipe.pk %}"
+				><div class="rounded-2xl w-full h-fit">
+					<img
+						src="{{ recipe.image.url }}"
+						alt="{{ recipe.title }}"
+						class="rounded-t-2xl w-full h-52 object-cover"
+					/>
+					<div class="z-10 bg-white w-fit">
+						<h3 class="jost font-bold">{{ recipe.title }}</h3>
+						<h6 class="jost text-gray-500 text-xl font-bold">
+							<i class="far fa-clock text-gray-500 text-xl"></i>
+							{{ recipe.total_cook_time }}h
+						</h6>
+					</div>
+				</div></a
 			>
+			{% endfor%}
 		</div>
-	</div>
-	{% endfor%}
-</section>
+	</section>
+
+	<section>
+		<p>Choose your next journey!</p>
+		<h1>Browse by Region &#127757;</h1>
+		<div class="grid grid-cols-4 gap-20 my-5">
+			<div id="food-card" class="relative rounded-2xl h-fit">
+				<a href="{% url 'recipes_list_by_category' 'indian'%}">
+					<img
+						src="{% static 'images/indian.jpg' %}"
+						alt="Indian"
+						class="rounded-2xl w-full h-52 object-cover"
+					/>
+					<div
+						class="absolute inset-0 bg-gray-700 opacity-70 rounded-2xl"
+					></div>
+					<h1
+						class="jost font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+					>
+						India
+					</h1>
+				</a>
+			</div>
+			<div id="food-card" class="relative rounded-2xl h-fit">
+				<a href="{% url 'recipes_list_by_category' 'greece'%}">
+					<img
+						src="{% static 'images/greek.jpg' %}"
+						alt="Greece"
+						class="rounded-2xl w-full h-52 object-cover"
+					/>
+					<div
+						class="absolute inset-0 bg-gray-700 opacity-70 rounded-2xl"
+					></div>
+					<h1
+						class="jost font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+					>
+						Greece
+					</h1>
+				</a>
+			</div>
+			<div id="food-card" class="relative rounded-2xl h-fit">
+				<a href="{% url 'recipes_list_by_category' 'french'%}">
+					<img
+						src="{% static 'images/french.jpg' %}"
+						alt="France"
+						class="rounded-2xl w-full h-52 object-cover"
+					/>
+					<div
+						class="absolute inset-0 bg-gray-700 opacity-70 rounded-2xl"
+					></div>
+					<h1
+						class="jost font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+					>
+						France
+					</h1>
+				</a>
+			</div>
+			<div id="food-card" class="relative rounded-2xl h-fit">
+				<a href="{% url 'recipes_list_by_category' 'chinese'%}">
+					<img
+						src="{% static 'images/chinese.jpg' %}"
+						alt="China"
+						class="rounded-2xl w-full h-52 object-cover"
+					/>
+					<div
+						class="absolute inset-0 bg-gray-700 opacity-70 rounded-2xl"
+					></div>
+					<h1
+						class="jost font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+					>
+						China
+					</h1>
+				</a>
+			</div>
+		</div>
+	</section>
+</div>
+
 {% endblock %}
