@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from random import randint
+from .forms import RecipeForm
 
 
 
@@ -53,15 +54,23 @@ class HomeView(ListView):
 class AboutView(TemplateView):
     template_name = 'recipes/about.html'
 
+class RecipeCreateSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'recipes/create_recipe_success.html'
+
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
-    fields = ['title', 'description']
-    success_url = reverse_lazy('recipes-home')
-
+    template_name = 'recipes/create_recipe.html '
+    form_class = RecipeForm
+    success_url = reverse_lazy('create_recipe_success')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add Recipe'
+        return context
     
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Recipe
