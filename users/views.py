@@ -11,6 +11,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 
 
+def profile(request):
+    return render(request, 'users/profile.html', {'title': 'Recip | Your Profile'})
+
+
 def signup(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -32,4 +36,4 @@ class LogOutView(LogoutView):
 
 class LogInView(LoginView):
     def get_redirect_url(self):
-        return reverse_lazy('recipes-home')
+        return reverse_lazy('home')

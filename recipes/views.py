@@ -1,28 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy  
 from .models import Recipe
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
+from random import randint
 
 
-# Create your views here.
-def home(request):
-    recipes = Recipe.objects.all()
-    context = {
-        'recipes': recipes,
-    }
-    return render(request, "recipes/home.html", context)
+
+def get_random_recipe(request):
+    total_recipes = Recipe.objects.count()
+    random_index = randint(0, total_recipes - 1)
+    random_recipe = Recipe.objects.all()[random_index]
+    return redirect('recipe_detail', pk=random_recipe.pk)
 
 class RecipeListView(ListView):
     model = Recipe
     template_name = 'recipes/recipe_list.html'
     context_object_name = 'recipe_list'
 
+# This method is used to filter recipes by category or search.
     def get_queryset(self):
         category_name = self.kwargs.get('category_name', None)
+        search_query = self.request.GET.get('search_query', '')
         if category_name:
             return Recipe.objects.filter(category=category_name)
+        # Searches by passed query. If no query is passed, returns all recipes
+        elif search_query:
+            if (search_query == ''):
+                return Recipe.objects.all() 
+            return Recipe.objects.filter(
+                Q(title__icontains=search_query) | 
+                Q(description__icontains=search_query)
+            )
         else:
             return Recipe.objects.all()
         
@@ -34,8 +45,10 @@ class RecipeDetailView(DetailView):
     template_name = 'recipes/recipe_detail.html'
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
+    model = Recipe
     template_name = 'recipes/home.html'
+    context_object_name = 'recipe_list'
 
 class AboutView(TemplateView):
     template_name = 'recipes/about.html'
@@ -70,3 +83,4 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         recipe = self.get_object()
         return self.request.user == recipe.author
+

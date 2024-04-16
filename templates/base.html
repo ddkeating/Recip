@@ -3,22 +3,41 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Find amazing recipes from around the world.">
-        
+		<meta
+			name="description"
+			content="Find amazing recipes from around the world."
+		/>
+
 		{% if title %}
 		<title>{{title}}</title>
 		{% else %}
 		<title>Recip | Find Amazing Recipes from Around the World</title>
 		{% endif %} {% load static %}
-		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="{% static 'favicon.ico' %}"
+		/>
 		<!-- Import TailwindCSS -->
-		<script src="https://cdn.tailwindcss.com"></script>
-        <!-- Import FontAwesomeIcons-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+		<!--Cannot use script tailwindCSS as it prevents inherit behavior of elements.-->
+		<link
+			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+
+		<!-- Import FontAwesomeIcons-->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 	</head>
 
-	<body class="">
-		<nav style="color: var(--font-title);" class="flex flex-row jost font-medium text-lg align-middle px-16 py-6">
+	<body>
+		<nav
+			style="color: var(--font-title)"
+			class="flex flex-row jost font-medium text-lg py-6 px-12 nav-bar"
+		>
 			<div class="justify-start flex-grow">
 				<a href="#" class="text-xl font-bold">Recip.</a>
 			</div>
@@ -28,15 +47,55 @@
 					<a href="{% url 'about' %}">About</a></li>
                     <i class="fas fa-search"></i>
 			</div>
-			<div class="">
+			<div class="flex flex-row space-x-5">
 				{% if user.is_authenticated %}
-				<a href="#">My Profile</a>
-				<a href="#">Logout</a>
+				<a
+					href="{% url 'profile' %}"
+					class="px-4 py-1 tracking-wide rounded-full text-white"
+					style="background-color: var(--primary-color)"
+					>My Profile</a
+				>
+				<form method="post" action="{% url 'logout' %}">
+					{% csrf_token %}
+					<button
+						type="submit"
+						class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+						style="background-color: var(--accent-color)"
+					>
+						Logout
+					</button>
+				</form>
 				{% else %}
-				<a href="{% url 'login' %}">Login</a>
+				<a
+					href="{% url 'login' %}"
+					class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+					style="background-color: var(--accent-color)"
+					>Login</a
+				>
 				{% endif %}
 			</div>
 		</nav>
-		{% block content %}{% endblock %} 
+		<main class="min-h-screen">{% block content %}{% endblock %}</main>
+		<footer
+			class="relative flex flex-col items-center py-4"
+			style="background-color: var(--primary-color)"
+		>
+			<div class="flex flex-row space-x-10 mb-5">
+				<ul class="flex flex-col">
+					<p class="font-bold">Quick Links</p>
+					<a href="{% url 'recipes_list' %}">All Recipes</a>
+				</ul>
+				<ul class="flex flex-col space-y-1">
+					<p class="font-bold">Recipes</p>
+					<a href="{% url 'recipes_list_by_category' 'indian' %}">Indian</a>
+					<a href="{% url 'recipes_list_by_category' 'chinese' %}">Chinese</a>
+					<a href="{% url 'recipes_list_by_category' 'french' %}">French</a>
+					<a href="{% url 'recipes_list_by_category' 'american' %}">American</a>
+					<a href="{% url 'recipes_list_by_category' 'asian' %}">Asian</a>
+				</ul>
+			</div>
+
+			<p>&copy; 2024 Recip. All rights reserved.</p>
+		</footer>
 	</body>
 </html>
