@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+
 <div class='flex flex-col gap-8 w-full items-center justify-center'>
 <h1 class='text-5xl'>Login</h1>
 {% if user.is_authenticated %}
   <p>Your account doesn't have access to this page. To proceed,
   please login with an account that has access.</p>
 {% else %}
-  <p>Pleas login with your Recip account.</p>
+  <p>Please login with your Recip account.</p>
 {% endif %}
 
 
@@ -18,22 +16,25 @@
   <table class='flex flex-col p-8 bg-[#f5f5f5] rounded-md shadow-md'>
     <tr class='flex gap-2 justify-between mb-4'>
       <td><p>{{ form.username.label_tag }}</p></td>
-      <td><p>{{ form.username }}</p></td>
+      <td class='border'><p>{{ form.username }}</p></td>
     </tr>
     <tr class='flex gap-2 justify-between mb-8'>
       <td><p>{{ form.password.label_tag }}</p></td>
-      <td><p>{{ form.password }}</p></td>
+      <td class='border'><p>{{ form.password }}</p></td>
     </tr>
     <tr class='w-full flex justify-center'>
       <td class=''>
         <button type="submit" value="login"
-        class="bg-[#162435] px-6 py-1 rounded-full  font-medium hover:bg-[#999] transition-all">
+        class="bg-primary px-6 py-1 rounded-full  font-medium hover:bg-[#999] transition-all">
           <p class='text-white'>Login</p>
         </button>
       </td>
     </tr>
   </table>
 </form>
+{% if form.errors %}
+<p class='error-message'>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
 {# Assumes you setup the password_reset view in your URLconf #}
 {% comment %} <p class='underline'><a href="{% url 'signup' %}">Need an account?</a></p> {% endcomment %}
