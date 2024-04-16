@@ -42,10 +42,10 @@
 				<a href="#" class="text-xl font-bold">Recip.</a>
 			</div>
 			<div class="space-x-10 mr-10">
-				<a href="{% url 'home' %}">Home</a>
-				<a href="#">Recipes</a>
-				<a href="{% url 'about' %}">About</a>
-				<i class="fas fa-search"></i>
+					<a href="{% url 'home' %}">Home</a></li>
+                    <a href="{% url 'recipes_list' %}">Recipes</a></li>
+					<a href="{% url 'about' %}">About</a></li>
+                    <i class="fas fa-search"></i>
 			</div>
 			<div class="flex flex-row space-x-5">
 				{% if user.is_authenticated %}
