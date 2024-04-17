@@ -119,3 +119,24 @@ footer p {
 #food-card:hover {
 	transform: scale(1.05);
 }
+
+.center-content {
+	text-align: center;
+}
+
+.recipe-list {
+	list-style-type: none;
+}
+
+.recipe-item {
+	display: flex; /* use flexbox to create a horizontal layout*/
+	margin-bottom: 20px; /* Adjust spacing between recipe items*/
+}
+
+.recipe-item img {
+	margin-right: 20px; /* Adjust spacing between image and text */
+}
+
+.recipe-details {
+	flex: 1; /* Allow the text to take up remaining space */
+}

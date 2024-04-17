@@ -1,24 +1,26 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Author Details</h1>
-<h2>Username: {{ user.username }}</h2>
-<p>Email: {{ object.email }}</p>
- 
-    <h2>Recipes</h2>
-<a href=""><button>Add New Recipe</button></a>
-<ul>
-        {% for recipe in recipes %}
-<li>
-<img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="150">
-<div>
-<h3>{{ recipe.title }}</h3>
-<p>{{ recipe.description|truncatechars:350 }}</p>
-<a href="">View Recipe Details</a><br>
-<a href=""><button>Edit</button></a>
-<form action="" method="post">
-                    {% csrf_token %}
-<button type="submit">Delete</button>
-</form>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="center-content">
+	<h1 class="jost">{{ user.first_name }} {{ user.last_name }} </h1>
+	<h2 class="jost">Username: {{ user.username }}</h2>
+	<p class="jost">Email: {{ object.email }}</p>
+    <h2 class="jost">My Recipes</h2>
+<a href=""><button>New</button></a>
 </div>
+
+<ul class="recipe-list">
+        {% for recipe in recipes %}
+		<li class="recipe-item">
+		<img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="150">
+	<div class="recipe-details">
+		<h3>{{ recipe.title }}</h3>
+		<p>{{ recipe.description|truncatechars:350 }}</p>
+		<a href="">View Recipe Details</a><br>
+		<a href=""><button>Edit</button></a>
+		<form action="" method="post">
+                {% csrf_token %}
+			<button type="submit">Delete</button>
+		</form>
+	</div>
 </li>
         {% endfor %}
 </ul>
