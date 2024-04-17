@@ -1,3 +1,17 @@
 {% extends 'base.html' %} {% block content %}
-<h1>About Recipes App</h1>
+<div class="flex flex-col items-center">
+  <h1 class="mb-4">About Recipes App</h1>
+  <p id="about-body">
+    Welcome to the Recipes App! This app is a simple Django app to manage
+    recipes. It allows users to create, edit, and delete their own recipes to
+    share with the world. Users can also view a list of all recipes and view
+    individual recipes.
+  </p>
+  <p id="about-body">
+    This app was created as a group learning project for the Django web framework using a Git workflow. It
+    is part of the Serverside Web Development Paper for the Diploma in Software Development at Whitecliffe College, NZ.
+    The app is built using Django's built-in features,
+    such as models, views, templates, and forms.
+  </p>
+</div>
 {% endblock content %}
