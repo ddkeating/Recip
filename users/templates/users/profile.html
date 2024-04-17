@@ -1,5 +1,25 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container">
-	<h1>{{ user.username }}</h1>
+<h1>Author Details</h1>
+<h2>Username: {{ user.username }}</h2>
+<p>Email: {{ object.email }}</p>
+ 
+    <h2>Recipes</h2>
+<a href=""><button>Add New Recipe</button></a>
+<ul>
+        {% for recipe in recipes %}
+<li>
+<img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="150">
+<div>
+<h3>{{ recipe.title }}</h3>
+<p>{{ recipe.description|truncatechars:350 }}</p>
+<a href="">View Recipe Details</a><br>
+<a href=""><button>Edit</button></a>
+<form action="" method="post">
+                    {% csrf_token %}
+<button type="submit">Delete</button>
+</form>
 </div>
+</li>
+        {% endfor %}
+</ul>
 {% endblock content %}

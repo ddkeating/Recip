@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from .models import Recipe
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.db.models import Q
 from random import randint
 from .forms import RecipeForm
@@ -92,4 +93,16 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         recipe = self.get_object()
         return self.request.user == recipe.author
+    
+class AuthorDetailView(DetailView):
+    model = User
+    template_name = 'users/profile.html'
+ 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        recipes = Recipe.objects.filter(author=user)
+        context['recipes'] = recipes
+        return context
+    
 
