@@ -1,25 +1,60 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Author Details</h1>
-<h2>Username: {{ user.username }}</h2>
-<p>Email: {{ object.email }}</p>
- 
-    <h2>Recipes</h2>
-<a href=""><button>Add New Recipe</button></a>
-<ul>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class='flex flex-col items-center gap-4'>
+	<h1>{{ user.first_name }} {{user.last_name}}</h1>
+			<div class="flex flex-col items-center gap-1">
+					<p class='font-bold'>Username:<p>
+					<p>{{ user.username }}<p>
+			</div>
+			<div class="flex flex-col items-center gap-1">
+					<p class='font-bold'>Email<p>
+					<p>{{ user.email }}<p>
+			</div>
+	 <div class="flex gap-2">
+
+		<h2>Recipes</h2>
+		<a
+		class="inline-block bg-yellow px-6 py-2 rounded-full"
+		href="{% url 'recipes_create' %}"
+	>
+		<p class="text-lg text-white">+ New</p>
+	</a>
+
+	</div>
+<ul class="recipe-list px-12 ">
         {% for recipe in recipes %}
-<li>
-<img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" width="150">
-<div>
-<h3>{{ recipe.title }}</h3>
-<p>{{ recipe.description|truncatechars:350 }}</p>
-<a href="">View Recipe Details</a><br>
-<a href=""><button>Edit</button></a>
-<form action="" method="post">
-                    {% csrf_token %}
-<button type="submit">Delete</button>
-</form>
-</div>
-</li>
+		<div class="flex w-full items-center relative gap-4 max-h-[300px] rounded-md mb-4">
+			<img
+				src="{{recipe.image.url}}"
+				alt="{{recipe.title}}"
+				class="flex object-cover w-1/2 h-300"
+			/>
+	
+			<div class="w-1/2 p-4">
+				<h2 class="text-3xl font-bold mb-4">{{recipe.title}}</h2>
+				<p class="text-lg text-gray-700 mb-4">{{recipe.description}}</p>
+				<a
+					class="inline-block bg-primary px-6 py-2 rounded-full"
+					href="{% url 'recipe_detail' recipe.id %}"
+				>
+					<p class="text-lg text-white">View Recipe</p>
+				</a>
+				<a
+					class="inline-block bg-secondary px-6 py-2 rounded-full"
+					href="{% url 'recipe_detail' recipe.id %}"
+				>
+					<p class="text-lg text-white">Edit</p>
+				</a>
+				<a
+					class="inline-block bg-red px-6 py-2 rounded-full"
+					href=""
+				>
+					<p class="text-lg text-white">Delete</p>
+				</a>
+
+
+			</div>
+		</div>
         {% endfor %}
 </ul>
+</div>
 {% endblock content %}

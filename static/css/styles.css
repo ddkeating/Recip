@@ -76,8 +76,17 @@ footer p {
 	max-width: 50%;
 }
 
+.bg-secondary {
+	background-color: var(--accent-color);
+}
 .bg-primary {
 	background-color: var(--primary-color);
+}
+.bg-red {
+	background-color: var(--misc-one);
+}
+.bg-yellow {
+	background-color: var(--misc-two);
 }
 .error-message {
 	color: var(--misc-one);
@@ -123,6 +132,28 @@ footer p {
 	transform: scale(1.05);
 }
 
+<<<<<<< HEAD
+.center-content {
+	text-align: center;
+}
+
+.recipe-list {
+	list-style-type: none;
+}
+
+.recipe-item {
+	display: flex; /* use flexbox to create a horizontal layout*/
+	margin-bottom: 20px; /* Adjust spacing between recipe items*/
+}
+
+.recipe-item img {
+	margin-right: 20px; /* Adjust spacing between image and text */
+}
+
+.recipe-details {
+	flex: 1; /* Allow the text to take up remaining space */
+}
+=======
 #form-add-recipe div {
 	display: flex;
 	flex-direction: column;
@@ -150,3 +181,4 @@ footer p {
 	margin-bottom: 8px;
 }
 
+>>>>>>> 32210d77254160266d071a429970a19ddfb2f778
