@@ -54,5 +54,5 @@ class Recipe(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("model_detail", kwargs={"pk": self.pk})
+        return reverse("recipe_detail", kwargs={"pk": self.pk})
     

@@ -40,13 +40,13 @@
 				</a>
 				<a
 					class="inline-block bg-secondary px-6 py-2 rounded-full"
-					href="{% url 'recipe_detail' recipe.id %}"
+					href="{% url 'recipe_update' recipe.id %}"
 				>
 					<p class="text-lg text-white">Edit</p>
 				</a>
 				<a
 					class="inline-block bg-red px-6 py-2 rounded-full"
-					href=""
+					href="{% url 'recipe_delete' recipe.id  %}"
 				>
 					<p class="text-lg text-white">Delete</p>
 				</a>
