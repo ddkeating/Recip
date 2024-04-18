@@ -9,9 +9,9 @@
 					<p class='font-bold'>Email<p>
 					<p>{{ user.email }}<p>
 			</div>
-	 <div class="flex gap-4">
+	 <div class="flex gap-4 mt-16 mb-4">
 
-		<h2>Recipes</h2>
+		<h2>My Recipes</h2>
 		<a
 		class=" bg-yellow px-6 py-2 rounded-full"
 		href="{% url 'recipes_create' %}"
@@ -22,7 +22,7 @@
 	</div>
 <ul class="recipe-list px-12 ">
         {% for recipe in recipes %}
-		<div class="flex w-full items-center relative gap-4 max-h-[300px] rounded-md mb-4">
+		<div class="flex w-full items-center relative gap-4 max-h-[300px] rounded-md overflow-hidden mb-4">
 			<img
 				src="{{recipe.image.url}}"
 				alt="{{recipe.title}}"

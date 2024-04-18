@@ -1,21 +1,21 @@
 {% extends 'base.html' %} {% block content %}
 <div class="px-12">
 	<section class="flex flex-row my-4 justify-between">
-		<div class="flex flex-col w-2/5">
+		<div class="flex flex-col  w-2/5">
 			<p>
 				Unleash your inner chef and embark on a culinary adventure with Recip
 			</p>
-			<h1 class="leading-tight">
+			<h1 class="leading-tight mb-2">
 				World-Class Flavours on Your Plate, Explore Fantastic Recipes by Pro
 				Home Cooks from Around the Globe
 			</h1>
-			<p>
+			<p class='mb-4'>
 				Recip. brings amazing family recipes of the world to your kitchen.
 				Explore world-class flavours with our collection of inspiring recipes,
 				making Grandma-approved meals achievable for any home cooks.
 			</p>
 			<!--Search Bar item-->
-			<div class="flex flex-row space-x-10 items-center">
+			<div class="flex flex-row space-x-2 items-center">
 				<form method="GET" action="{% url 'recipes_list_by_search'  %}">
 					<!--Should not require CSRF Token due to it being a GET request.-->
 					<div class="flex flex-row rounded-full p-1 home-input">
@@ -51,7 +51,7 @@
 		</div>
 	</section>
 
-	<section>
+	<section class='mb-10'>
 		<p>Recip. Exclusive</p>
 		<h1>Hot Right Now &#128293;</h1>
 		<div class="grid grid-cols-4 gap-20 my-5">
@@ -76,7 +76,7 @@
 		</div>
 	</section>
 
-	<section>
+	<section class='mb-16'>
 		<p>Choose your next journey!</p>
 		<h1>Browse by Region &#127757;</h1>
 		<div class="grid grid-cols-4 gap-20 my-5">
