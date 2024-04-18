@@ -32,5 +32,5 @@ class LogOutView(LogoutView):
 
 class LogInView(LoginView):
     def get_redirect_url(self):
-        return reverse_lazy('recipes-home')
+        return reverse_lazy('home')
     

@@ -36,7 +36,7 @@
 	<body>
 		<nav
 			style="color: var(--font-title)"
-			class="flex flex-row jost font-medium text-lg py-6 px-12 nav-bar"
+			class="flex flex-row jost items-center font-medium text-lg py-6 px-12 nav-bar"
 		>
 			<div class="justify-start flex-grow">
 				<a href="#" class="text-xl font-bold">Recip.</a>
@@ -45,7 +45,7 @@
 					<a href="{% url 'home' %}">Home</a></li>
                     <a href="{% url 'recipes_list' %}">Recipes</a></li>
 					<a href="{% url 'about' %}">About</a></li>
-                    <i class="fas fa-search"></i>
+                    <a href="{% url 'home' %}"><i class="fas fa-search"></i>
 			</div>
 			<div class="flex flex-row space-x-5">
 				{% if user.is_authenticated %}
@@ -59,7 +59,7 @@
 					{% csrf_token %}
 					<button
 						type="submit"
-						class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+						class="px-4 py-1 tracking-wide rounded-full text-white font-medium"
 						style="background-color: var(--accent-color)"
 					>
 						Logout
@@ -68,19 +68,25 @@
 				{% else %}
 				<a
 					href="{% url 'login' %}"
-					class="px-4 py-1 tracking-wide rounded-full text-white font-bold"
+					class="px-4 py-1 tracking-wide rounded-full text-white font-medium"
 					style="background-color: var(--accent-color)"
 					>Login</a
+				>
+				<a
+					href="{% url 'register' %}"
+					class="px-4 py-1 tracking-wide rounded-full text-white font-medium"
+					style="background-color: var(--primary-color)"
+					>Sign Up</a
 				>
 				{% endif %}
 			</div>
 		</nav>
 		<main class="min-h-screen">{% block content %}{% endblock %}</main>
 		<footer
-			class="relative flex flex-col items-center py-4"
+			class="relative flex flex-col items-center py-12"
 			style="background-color: var(--primary-color)"
 		>
-			<div class="flex flex-row space-x-10 mb-5">
+			<div class="flex flex-row space-x-20 mb-5">
 				<ul class="flex flex-col">
 					<p class="font-bold">Quick Links</p>
 					<a href="{% url 'recipes_list' %}">All Recipes</a>
@@ -95,7 +101,7 @@
 				</ul>
 			</div>
 
-			<p>&copy; 2024 Recip. All rights reserved.</p>
+			<p class='mt-4'>&copy; 2024 Recip. All rights reserved.</p>
 		</footer>
 	</body>
 </html>
