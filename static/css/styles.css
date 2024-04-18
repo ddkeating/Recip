@@ -132,7 +132,6 @@ footer p {
 	transform: scale(1.05);
 }
 
-<<<<<<< HEAD
 .center-content {
 	text-align: center;
 }
@@ -153,7 +152,7 @@ footer p {
 .recipe-details {
 	flex: 1; /* Allow the text to take up remaining space */
 }
-=======
+
 #form-add-recipe div {
 	display: flex;
 	flex-direction: column;
@@ -180,5 +179,3 @@ footer p {
 	text-align: center;
 	margin-bottom: 8px;
 }
-
->>>>>>> 32210d77254160266d071a429970a19ddfb2f778

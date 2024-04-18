@@ -1,17 +1,21 @@
-{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
-<div class="container">
-	<form method="POST">
+{% extends 'base.html' %}
+{% block content %}
+<div class="mt-20">
+	<form method="post" class='flex flex-col items-center gap-4'>
 		{% csrf_token %}
-		<fieldset class="form-group">
-			<legend class="mb-4">Are you sre you want to delete {{ object }}</legend>
-			{{ form|crispy }}
-		</fieldset>
-		<div class="form-group py-3">
-			<input class="btn btn-outline-danger" type="submit" value="Delete" />
+		<h3>Are you sure you want to delete "{{ object }}"?</h3>
+		{{ form }}
+		<div class="flex gap-2">
+			<a  href={% url 'profile' user.id %}
+				class="px-4 py-2 tracking-wide rounded-full text-white self-center"
+				style="background-color: var(--primary-color)"
+				>Cancel</a>
+			<button
+                type='submit'
+				class="px-4 py-2 tracking-wide rounded-full text-white self-center"
+				style="background-color: var(--misc-one)"
+				>Yes, Delete</button>
 		</div>
 	</form>
-	<div class="border-top pt-3">
-		<a href="{% url 'recipes-create' %}">Cancel</a>
-	</div>
 </div>
-{% endblock content %}
+{% endblock %}

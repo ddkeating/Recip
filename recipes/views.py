@@ -66,6 +66,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        # Save the image file
+        form.instance.image = self.request.FILES.get('image')
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -75,26 +77,37 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Recipe
-    fields = ['title', 'description']
-
-    def test_func(self):
-        recipe = self.get_object()
-        return self.request.user == recipe.author
+    form_class = RecipeForm
+    # fields = ['title', 'description', 'category', 'ingredients', 'instructions', 'image', 'total_cook_time']
+    template_name = 'recipes/update_recipe.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        self.success_url = reverse_lazy('recipes-home')
+        # Save the image file
+        form.instance.image = self.request.FILES.get('image')
         return super().form_valid(form)
+    
+    def test_func(self):
+            recipe = self.get_object()
+            if self.request.user == recipe.author:
+                return True
+            return False
+
     
 class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Recipe
-    success_url = reverse_lazy( 'recipes-home' )
+    template_name = 'recipes/recipe_confirm_delete.html'
 
-    def test_func(self):
-        recipe = self.get_object()
-        return self.request.user == recipe.author
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
     
-class AuthorDetailView(DetailView):
+    def test_func(self):
+            recipe = self.get_object()
+            if self.request.user == recipe.author:
+                return True
+            return False
+
+class AuthorDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = User
     template_name = 'users/profile.html'
  
@@ -104,5 +117,11 @@ class AuthorDetailView(DetailView):
         recipes = Recipe.objects.filter(author=user)
         context['recipes'] = recipes
         return context
+    
+    def test_func(self):
+            user = self.get_object()
+            if self.request.user == user:
+                return True
+            return False
     
 
