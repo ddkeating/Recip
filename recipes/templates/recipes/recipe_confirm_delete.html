@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-	<form method="post">
+<div class="mt-20">
+	<form method="post" class='flex flex-col items-center gap-4'>
 		{% csrf_token %}
-		<p>Are you sure you want to delete "{{ object }}"?</p>
+		<h3>Are you sure you want to delete "{{ object }}"?</h3>
 		{{ form }}
-		<input type="submit" value="Confirm">
+		<div class="flex gap-2">
+			<a  href={% url 'profile' user.id %}
+				class="px-4 py-2 tracking-wide rounded-full text-white self-center"
+				style="background-color: var(--primary-color)"
+				>Cancel</a>
+			<button
+                type='submit'
+				class="px-4 py-2 tracking-wide rounded-full text-white self-center"
+				style="background-color: var(--misc-one)"
+				>Yes, Delete</button>
+		</div>
 	</form>
-	<div class="border-top pt-3">
-		<a href="{% url 'profile' user.id %}">Cancel</a>
-	</div>
 </div>
 {% endblock %}

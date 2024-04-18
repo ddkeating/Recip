@@ -1,8 +1,8 @@
 {% extends 'base.html' %} 
 {% block content %}
-<div class='flex flex-col items-center'>
+<div  class='flex flex-col items-center'>
 	<h1>Add Recipe</h1>
-	<form id='form-add-recipe' class='form-add-recipe' method="post" enctype="multipart/form-data">
+	<form id="form-add-recipe" class='form-add-recipe' method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form.media }}
 		{{ content | safe }}

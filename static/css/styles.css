@@ -22,6 +22,32 @@
 }
 
 /* General Styles */
+#form-add-recipe div {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 16px;
+}
+
+
+#form-add-recipe div label {
+	color: var(--font-title);
+	margin-bottom: 4px;
+}
+
+#form-add-recipe div input, 
+#form-add-recipe div textarea {
+	flex-grow: 1;
+	color: var(--font-body);
+	border: 2px solid var(--accent-color);
+	border-radius: 8px;
+	padding: 4px;
+}
+
+#about-body {
+	max-width: 80ch;
+	text-align: center;
+	margin-bottom: 8px;
+}
 
 body {
 	margin: 0;
@@ -132,7 +158,6 @@ footer p {
 	transform: scale(1.05);
 }
 
-<<<<<<< HEAD
 .center-content {
 	text-align: center;
 }
@@ -153,32 +178,4 @@ footer p {
 .recipe-details {
 	flex: 1; /* Allow the text to take up remaining space */
 }
-=======
-#form-add-recipe div {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 16px;
-}
 
-
-#form-add-recipe div label {
-	color: var(--font-title);
-	margin-bottom: 4px;
-}
-
-#form-add-recipe div input, 
-#form-add-recipe div textarea {
-	flex-grow: 1;
-	color: var(--font-body);
-	border: 2px solid var(--accent-color);
-	border-radius: 8px;
-	padding: 4px;
-}
-
-#about-body {
-	max-width: 80ch;
-	text-align: center;
-	margin-bottom: 8px;
-}
-
->>>>>>> 32210d77254160266d071a429970a19ddfb2f778
